@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
+const router = express.Router();
 
 require('dotenv').config();
 
@@ -28,6 +29,8 @@ app.use('/prices', historicoPreciosRouter);
 app.get('/', (req, res) => {
     res.send('HOME');
 })
+
+app.use('/.netlify/functions/app', router)
 
 //Start
 app.listen((process.env.PORT || 3000), function () {
