@@ -23,9 +23,16 @@ const historicoPreciosRouter = require('../routes/historicoPrecios');
 //Middleware
 app.use(cors());
 app.use(express.json())
-app.use('/productos', productosRouter);
-app.use('/prices', historicoPreciosRouter);
-//app.use('/.netlify/functions/app', router)
+//app.use('/productos', productosRouter);
+//app.use('/prices', historicoPreciosRouter);
+
+router.get('/', (req, res) => {
+    res.send('API Zalando is running...')
+})
+
+app.use('/.netlify/functions/app', router)
+app.use('/.netlify/functions/app/productos', productosRouter)
+app.use('/.netlify/functions/app/prices', historicoPreciosRouter)
 module.exports.handler = serverless(app)
 
 //Rutas
