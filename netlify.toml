@@ -1,2 +1,2 @@
 [build]
-    functions = "app.js"
+    functions = "functions"
