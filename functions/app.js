@@ -3,6 +3,7 @@ const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
 const router = express.Router();
+const serverless = require('serverless-http')
 
 require('dotenv').config();
 
@@ -24,13 +25,14 @@ app.use(cors());
 app.use(express.json())
 app.use('/productos', productosRouter);
 app.use('/prices', historicoPreciosRouter);
+app.use('/.netlify/functions/app', router)
+module.exports.handler = serverless(app)
 
 //Rutas
 app.get('/', (req, res) => {
     res.send('HOME');
 })
 
-app.use('/.netlify/functions/app', router)
 
 //Start
 app.listen((process.env.PORT || 3000), function () {
