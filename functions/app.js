@@ -16,8 +16,8 @@ db.on('error', (error) => console.error(error));
 db.once('open', () => console.log('Conectado a BD'))
 
 //Importar Rutas
-const productosRouter = require('./routes/productos');
-const historicoPreciosRouter = require('./routes/historicoPrecios');
+const productosRouter = require('../routes/productos');
+const historicoPreciosRouter = require('../routes/historicoPrecios');
 
 //Middleware
 app.use(cors());
