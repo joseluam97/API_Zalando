@@ -25,7 +25,7 @@ app.use(cors());
 app.use(express.json())
 app.use('/productos', productosRouter);
 app.use('/prices', historicoPreciosRouter);
-app.use('/.netlify/functions/app', router)
+//app.use('/.netlify/functions/app', router)
 module.exports.handler = serverless(app)
 
 //Rutas
