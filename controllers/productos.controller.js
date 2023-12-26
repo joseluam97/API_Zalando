@@ -265,5 +265,34 @@ productoCtrl.getAllProduct = async (req, res) => {
   }
 };
 
+productoCtrl.getCheckProductHavePrices = async (req, res) => {
+  try {
+    // Obtener la fecha y hora actual
+    const fechaActual = new Date();
+
+    // Convertir la fecha a un rango para el día actual
+    const inicioDia = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), fechaActual.getDate(), 0, 0, 0);
+    const finDia = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), fechaActual.getDate() + 1, 0, 0, 0);
+
+    // Obtener productos que NO tienen un precio para el día actual
+    const productosSinPrecioHoy = await Productos.find({
+      _id: {
+        $nin: await Precios.distinct('idProducto', {
+          date: {
+            $gte: inicioDia,
+            $lt: finDia,
+          },
+        }),
+      },
+    });
+
+    console.log("Hay un total de " +productosSinPrecioHoy.length+ " productos sin precio a dia de hoy.")
+
+    res.status(200).send(productosSinPrecioHoy);
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).send('Internal Server Error');
+  }
+};
 
 module.exports = productoCtrl;
