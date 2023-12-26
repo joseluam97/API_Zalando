@@ -30,9 +30,9 @@ router.get('/', (req, res) => {
     res.send('API Zalando is running...')
 })
 
-app.use(MAIN_ROUTER, router)
-app.use(MAIN_ROUTER+'/productos', productosRouter)
-app.use(MAIN_ROUTER+'/prices', historicoPreciosRouter)
+app.use(process.env.MAIN_ROUTER, router)
+app.use(process.env.MAIN_ROUTER+'/productos', productosRouter)
+app.use(process.env.MAIN_ROUTER+'/prices', historicoPreciosRouter)
 module.exports.handler = serverless(app)
 
 //Rutas
